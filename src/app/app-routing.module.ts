@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {IndexComponent} from './components/index/index.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
+import {AuthGuardService} from './guards/authGuard';
 
 export const componentsArray = [
     LoginComponent,
@@ -11,7 +12,7 @@ export const componentsArray = [
 ]
 
 const routes: Routes = [
-  {path:'',component:IndexComponent},
+  {path:'',component:IndexComponent, canActivate:[AuthGuardService]},
   {path:'login',component: LoginComponent}
 ];
 
