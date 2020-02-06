@@ -3,12 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const GLOBAL = {
-
+  RUTA_GLOBAL: 'http://localhost:3000'
 }
 
 export const environment = {
-  production: false
+  production: false,
+  SERVICIOS_INICIA_SESION: GLOBAL.RUTA_GLOBAL + '/api/login'
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -4,21 +4,22 @@
             <img src="../../../assets/LOGO BLANCO.jpg" alt="" class="logo">
         </div>
         <label class="field a-field a-field_a2">
-            <input class="field__input a-field__input" placeholder="ejemplo@mail.com" required>
+            <input class="field__input a-field__input" placeholder="ejemplo@mail.com" [(ngModel)]="loginObject.mail" required>
             <span class="a-field__label-wrap">
-              <span class="a-field__label">Correo electrónico</span>
+              <span class="a-field__label">Correo electrónico *</span>
             </span>
         </label>
         <label class="field a-field a-field_a2">
-            <input class="field__input a-field__input" type="password" placeholder="-" required>
+            <input class="field__input a-field__input" type="password" placeholder="-" [(ngModel)]="loginObject.userPassword" required>
             <span class="a-field__label-wrap">
-              <span class="a-field__label">Contraseña</span>
+              <span class="a-field__label">Contraseña *</span>
             </span>
         </label>
-      
+        <p class="errorMsg" *ngIf="validationErrors">Los campos marcados con * son obligatorios</p>
+        <p class="errorMsg" *ngIf="loginErrors">{{errorMsg}}</p>
         <div class="buttonContainer">
             <br>
-            <button class="mainButton">Entrar</button>
+            <button class="mainButton" (click)="login()">Entrar</button>
         </div>
         
     </div>

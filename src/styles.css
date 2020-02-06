@@ -295,6 +295,11 @@ LEVEL 1. RESET STYLES
     border-color: #00ffff;
   }
 
+  .errorMsg{
+    font-weight: 570;
+    color: rgb(200, 17, 17);
+  }
+
 
   @media (min-width: 481px){
     
