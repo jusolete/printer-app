@@ -300,6 +300,10 @@ LEVEL 1. RESET STYLES
     color: rgb(200, 17, 17);
   }
 
+  .title{
+    text-align: center;
+  }
+
 
   @media (min-width: 481px){
     

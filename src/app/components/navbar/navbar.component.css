@@ -1,6 +1,6 @@
 .navbarContainer {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     -webkit-box-shadow: 0px 1px 13px -4px #000000;
     box-shadow: 0px 1px 13px -4px #000000;
@@ -33,3 +33,19 @@
 .logo {
     max-height: 130px;
 }
+
+@media (max-width: 500px) {
+
+    .navbarContainer{
+        flex-flow: column wrap;
+        padding: 0;
+    }
+
+    .linksContainer{
+        flex-flow: column;
+    }
+ 
+    .logo{
+        max-height: 50px;
+    }
+  }

@@ -1,0 +1,12 @@
+.bodyContainer{
+    margin: 0px 100px;
+}
+
+@media (max-width: 500px) {
+    .bodyContainer{
+        margin: 0;
+    }
+    .logo{
+        max-height: 50px;
+    }
+  }

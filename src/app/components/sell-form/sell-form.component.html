@@ -1,1 +1,79 @@
-<p>sell-form works!</p>
+<div class="formContainer">
+  <h2 class="title">
+    Venta nueva
+  </h2>
+  <div class="col2">
+    <div class="fieldContainer">
+      <label class="field a-field a-field_a2">
+        <input class="field__input a-field__input" type="date" placeholder="01/01/1990" [(ngModel)]="loginObject.mail"
+          required>
+        <span class="a-field__label-wrap">
+          <span class="a-field__label">Fecha *</span>
+        </span>
+      </label>
+    </div>
+    <div class="fieldContainer">
+      <label class="field a-field a-field_a2">
+        <input class="field__input a-field__input" placeholder="Mi cliente" [(ngModel)]="loginObject.mail" required>
+        <span class="a-field__label-wrap">
+          <span class="a-field__label">Cliente *</span>
+        </span>
+      </label>
+    </div>
+  </div>
+  <div class="col4">
+    <div class="fieldContainer">
+      <label class="field a-field a-field_a2">
+        <input class="field__input a-field__input" placeholder="Piezas" [(ngModel)]="loginObject.mail" required>
+        <span class="a-field__label-wrap">
+          <span class="a-field__label">Piezas *</span>
+        </span>
+      </label>
+    </div>
+    <div class="fieldContainer">
+      <label class="field a-field a-field_a2">
+        <input class="field__input a-field__input" placeholder="Largo" [(ngModel)]="loginObject.mail" required>
+        <span class="a-field__label-wrap">
+          <span class="a-field__label">Largo *</span>
+        </span>
+      </label>
+    </div>
+    <div class="fieldContainer">
+      <label class="field a-field a-field_a2">
+        <input class="field__input a-field__input" placeholder="Ancho" [(ngModel)]="loginObject.mail" required>
+        <span class="a-field__label-wrap">
+          <span class="a-field__label">Ancho *</span>
+        </span>
+      </label>
+    </div>
+    <div class="fieldContainer">
+      <label class="field a-field a-field_a2">
+        <input class="field__input a-field__input" disabled placeholder="Total M2" [(ngModel)]="loginObject.mail"
+          required>
+        <span class="a-field__label-wrap">
+          <span class="a-field__label">Total M2 *</span>
+        </span>
+      </label>
+    </div>
+  </div>
+  <div class="col2">
+    <div class="fieldContainer">
+        <label class="field a-field a-field_a2">
+          <input class="field__input a-field__input" placeholder="Precio unitario" [(ngModel)]="loginObject.mail"
+            required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Precio unitario *</span>
+          </span>
+        </label>
+      </div>
+      <div class="fieldContainer">
+        <label class="field a-field a-field_a2">
+          <input class="field__input a-field__input" placeholder="Precio por pieza" [(ngModel)]="loginObject.mail"
+            required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Precio por pieza *</span>
+          </span>
+        </label>
+      </div>
+  </div>
+</div>

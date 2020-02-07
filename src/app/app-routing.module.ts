@@ -15,7 +15,9 @@ export const componentsArray = [
 
 const routes: Routes = [
   { path: '', component: IndexComponent, canActivate: [AuthGuardService] },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  {path: 'sales', component: SellFormComponent, canActivate:[AuthGuardService]},
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
