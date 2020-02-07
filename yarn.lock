@@ -214,6 +214,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@auth0/angular-jwt@^3.0.1":
+  version "3.0.1"
+  resolved "https://globaldevtools.bbva.com:443/artifactory/api/npm/npm-repo/@auth0/angular-jwt/-/angular-jwt-3.0.1.tgz#7b4dbfc160e0d7ea3f44d7f79d3865d9915ad9a0"
+  integrity sha1-e02/wWDg1+o/RNf3nThl2ZFa2aA=
+  dependencies:
+    url "^0.11.0"
+
 "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://globaldevtools.bbva.com:443/artifactory/api/npm/npm-repo/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"

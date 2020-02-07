@@ -10,9 +10,13 @@ export class AuthGuardService implements CanActivate {
     }
 
     canActivate() {
-        let token = JSON.parse(localStorage.getItem('authData')).token;
+        let token = "";
         const helper = new JwtHelperService();
-        if (helper.isTokenExpired(token)) {
+        if (JSON.parse(localStorage.getItem('authData'))) {
+            token = JSON.parse(localStorage.getItem('authData')).token;
+        }
+        
+        if (token.length === 0 && helper.isTokenExpired(token)) {
             this.router.navigateByUrl('/login');
             return false;
         } else {
