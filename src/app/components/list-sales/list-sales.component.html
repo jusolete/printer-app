@@ -1,0 +1,55 @@
+<div class="formContainer">
+    <br>
+    <h2 class="title">
+        Listado de notas
+      </h2>
+
+      <div class="col2">
+        <mat-form-field class="fieldContainer">
+            <mat-label>Fecha *</mat-label>
+            <input matInput  [matDatepicker]="picker" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+        <mat-form-field class="fieldContainer">
+          <mat-label>Precio por pieza *</mat-label>
+          <input matInput placeholder="precio por pieza" name="unitTotalPrice">
+        </mat-form-field>
+      </div>
+      <div class="buttonContainer">
+        <button mat-raised-button class="buttons" color="primary">Búsqueda avanzada</button>
+      </div>
+</div>
+<br>
+<div class="listItemContainer">
+    <div class="listItemTitle">
+        <div class="item" style="border-right: 3px solid rgb(209, 209, 209);">
+            <p class="itemTitle">Fecha</p>
+        </div>
+        <div class="item" style="border-right: 3px solid rgb(209, 209, 209);">
+            <p class="itemTitle">Cliente</p>
+        </div>
+        <div class="item" style="border-right: 3px solid rgb(209, 209, 209);">
+            <p class="itemTitle">Monto</p>
+        </div>
+        <div class="item">
+            <p class="itemTitle">Acción</p>
+        </div>
+    </div>
+    <br>
+    <div class="listItem">
+        <div class="item">
+            <p class="itemTitle">09/03/2020</p>
+        </div>
+        <div class="item">
+            <p class="itemTitle">Campaña publicitaria</p>
+        </div>
+        <div class="item">
+            <p class="itemTitle">$ 1,000.00
+            </p>
+        </div>
+        <div class="item">
+            <button mat-raised-button class="buttons"  color="primary">Ver más</button>
+        </div>
+    </div>
+</div>

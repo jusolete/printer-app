@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     canActivate() {
-        let token = "";
+       /*  let token = "";
         const helper = new JwtHelperService();
         if (JSON.parse(localStorage.getItem('authData'))) {
             token = JSON.parse(localStorage.getItem('authData')).token;
@@ -21,7 +21,8 @@ export class AuthGuardService implements CanActivate {
             return false;
         } else {
             return true;
-        }
+        } */
+        return true;
     }
 
 }

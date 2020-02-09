@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    if (this.loginObject.mail != '' && this.loginObject.userPassword != '') {
+
+    this.router.navigateByUrl('/');
+    /* if (this.loginObject.mail != '' && this.loginObject.userPassword != '') {
       this.validationErrors = false;
       this.loginErrors = false;
       this.loginService.login(this.loginObject).subscribe(response => {
@@ -44,7 +46,7 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.validationErrors = true;
-    }
+    } */
 
   }
 

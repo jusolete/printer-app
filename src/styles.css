@@ -298,12 +298,12 @@ LEVEL 1. RESET STYLES
   .errorMsg{
     font-weight: 570;
     color: rgb(200, 17, 17);
+    text-align: center;
   }
 
   .title{
     text-align: center;
   }
-
 
   @media (min-width: 481px){
     
@@ -311,3 +311,5 @@ LEVEL 1. RESET STYLES
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

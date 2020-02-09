@@ -5,18 +5,21 @@ import { IndexComponent } from './components/index/index.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuardService } from './guards/authGuard';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
+import { ListSalesComponent } from './components/list-sales/list-sales.component';
 
 export const componentsArray = [
   LoginComponent,
   IndexComponent,
   NavbarComponent,
-  SellFormComponent
+  SellFormComponent,
+  ListSalesComponent
 ]
 
 const routes: Routes = [
   { path: '', component: IndexComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   {path: 'sales', component: SellFormComponent, canActivate:[AuthGuardService]},
+  {path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: ''}
 ];
 
