@@ -1,5 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal/';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+ 
 
 @Component({
   selector: 'app-sell-form',
@@ -10,6 +12,9 @@ export class SellFormComponent implements OnInit {
 
   modalRef: BsModalRef;
 
+  @ViewChild('modal',{static: false }) autoShownModal: ModalDirective;
+
+
   saleItem: any = {
     client: '',
     items: [],
@@ -18,26 +23,25 @@ export class SellFormComponent implements OnInit {
     formError: false
   }
 
-  formObject: any[] = [{
-    quantity: undefined,
-    length: undefined,
-    height: undefined,
-    totalMeterSquares: undefined,
-    unitPrice: undefined,
-    unitTotalPrice: undefined,
-    observations: '',
-    fileName: '',
-    totalItemPrice: 0,
-    formError: false
-  }]
+  formObject: any[] = []
 
   constructor(private modalService:BsModalService) { }
 
   ngOnInit() {
-
+    setTimeout(() => {
+      this.openAskModal();
+    }, 500);
   }
 
-  addNewSale() {
+  ngAfterViewChecked(){
+    
+  }
+
+  openAskModal(){
+    this.autoShownModal.show();
+  }
+
+  addPrintingProduct(){
     this.formObject.push({
       quantity: undefined,
       length: undefined,
@@ -48,8 +52,28 @@ export class SellFormComponent implements OnInit {
       observations: '',
       fileName: '',
       totalItemPrice: 0,
-      formError: false
+      formError: false,
+      isPrintingItem:true
     });
+    this.autoShownModal.hide();
+  }
+
+  addPromotionalProduct(){
+    this.formObject.push({
+      quantity: undefined,
+      length: undefined,
+      height: undefined,
+      totalMeterSquares: undefined,
+      unitPrice: undefined,
+      unitTotalPrice: undefined,
+      observations: '',
+      fileName: '',
+      totalItemPrice: 0,
+      formError: false,
+      isPrintingItem:false
+    });
+    this.autoShownModal.hide();
+
   }
 
   calculateSize(index) {
@@ -109,6 +133,12 @@ export class SellFormComponent implements OnInit {
     debugger
   }
 
+  calculateItemPrice(index){
+    if(this.formObject[index].quantity != undefined && this.formObject[index].unitPrice != undefined){
+     this.formObject[index].totalItemPrice = this.formObject[index].quantity * this.formObject[index].unitPrice;
+    }
+  }
+
   saveOrder(template) {
     let size = this.validateFormFields()
     if (size === this.formObject.length && this.validateMainData()) {
@@ -123,6 +153,11 @@ export class SellFormComponent implements OnInit {
 
   closeModal(template: TemplateRef<any>){
     this.modalRef.hide();
+  }
+
+  hideModal(){
+    this.autoShownModal.hide();
+    debugger
   }
 
   selectedDate(event) {
