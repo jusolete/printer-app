@@ -151,13 +151,23 @@ export class SellFormComponent implements OnInit {
 
 
   endOrder(template){
+    let notificationObj = {};
     this.modalLoadingService.launchModalService(true);
     this.modalSale.hide();
     this.notesService.saveNote(this.saleItem).subscribe(response => {
-      this.modalLoadingService.launchModalService(false);
-     
       debugger
-    });
+      notificationObj['type'] = 'success';
+      notificationObj['message'] = 'Solicitud procesada correctamente';
+      this.modalLoadingService.launchModalService(false);
+      this.modalLoadingService.launchAlertService(notificationObj);
+      debugger
+    },(error => {
+      this.modalLoadingService.launchModalService(false);
+      notificationObj['type'] = 'danger';
+      notificationObj['message'] = 'Ha ocurrido un error al procesar la solicitud';
+      this.modalLoadingService.launchAlertService(notificationObj);
+      debugger
+    }));
   }
 
   openModal(template: TemplateRef<any>) {

@@ -6,7 +6,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuardService } from './guards/authGuard';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
 import { ListSalesComponent } from './components/list-sales/list-sales.component';
-import {ModalLoadingComponent} from './components/modal-loading/modal-loading.component';
+import { ModalLoadingComponent } from './components/modal-loading/modal-loading.component';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 export const componentsArray = [
   LoginComponent,
@@ -14,15 +15,16 @@ export const componentsArray = [
   NavbarComponent,
   SellFormComponent,
   ListSalesComponent,
-  ModalLoadingComponent
+  ModalLoadingComponent,
+  AlertsComponent
 ]
 
 const routes: Routes = [
   { path: '', component: IndexComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
-  {path: 'sales', component: SellFormComponent, canActivate:[AuthGuardService]},
-  {path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuardService]},
-  {path: '**', redirectTo: ''}
+  { path: 'sales', component: SellFormComponent, canActivate: [AuthGuardService] },
+  { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuardService] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
