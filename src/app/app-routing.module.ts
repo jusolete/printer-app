@@ -6,13 +6,15 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuardService } from './guards/authGuard';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
 import { ListSalesComponent } from './components/list-sales/list-sales.component';
+import {ModalLoadingComponent} from './components/modal-loading/modal-loading.component';
 
 export const componentsArray = [
   LoginComponent,
   IndexComponent,
   NavbarComponent,
   SellFormComponent,
-  ListSalesComponent
+  ListSalesComponent,
+  ModalLoadingComponent
 ]
 
 const routes: Routes = [

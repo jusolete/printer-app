@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal/';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ModalService} from '../../services/modals/modal.service';
+import { NotesService } from '../../services/notes/notes.service';
  
 
 @Component({
@@ -13,6 +15,7 @@ export class SellFormComponent implements OnInit {
   modalRef: BsModalRef;
 
   @ViewChild('modal',{static: false }) autoShownModal: ModalDirective;
+  @ViewChild('modalSale',{static: false }) modalSale: ModalDirective;
 
 
   saleItem: any = {
@@ -25,16 +28,14 @@ export class SellFormComponent implements OnInit {
 
   formObject: any[] = []
 
-  constructor(private modalService:BsModalService) { }
+  constructor(private modalService:BsModalService,
+     private modalLoadingService:ModalService, private notesService: NotesService) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.openAskModal();
-    }, 500);
   }
 
-  ngAfterViewChecked(){
-    
+  ngAfterViewInit(){
+    this.openAskModal();
   }
 
   openAskModal(){
@@ -61,8 +62,8 @@ export class SellFormComponent implements OnInit {
   addPromotionalProduct(){
     this.formObject.push({
       quantity: undefined,
-      length: undefined,
-      height: undefined,
+      length: '',
+      height: '',
       totalMeterSquares: undefined,
       unitPrice: undefined,
       unitTotalPrice: undefined,
@@ -143,8 +144,20 @@ export class SellFormComponent implements OnInit {
     let size = this.validateFormFields()
     if (size === this.formObject.length && this.validateMainData()) {
       this.saleItem.totalSalePrice = this.calculateTotals();
-      this.openModal(template);
+      this.modalSale.show();
+      this.saleItem.items = this.formObject;
     }
+  }
+
+
+  endOrder(template){
+    this.modalLoadingService.launchModalService(true);
+   this.modalSale.hide();
+    this.notesService.saveNote(this.saleItem).subscribe(response => {
+      this.modalLoadingService.launchModalService(false);
+     
+      debugger
+    });
   }
 
   openModal(template: TemplateRef<any>) {

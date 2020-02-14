@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router:Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   loginObject: any = {
     mail: '',
@@ -28,9 +28,7 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-
-    this.router.navigateByUrl('/');
-    /* if (this.loginObject.mail != '' && this.loginObject.userPassword != '') {
+    if (this.loginObject.mail != '' && this.loginObject.userPassword != '') {
       this.validationErrors = false;
       this.loginErrors = false;
       this.loginService.login(this.loginObject).subscribe(response => {
@@ -46,7 +44,7 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.validationErrors = true;
-    } */
+    }
 
   }
 

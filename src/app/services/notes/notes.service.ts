@@ -1,0 +1,26 @@
+import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NotesService {
+
+  headers:HttpHeaders;
+
+  constructor(private http:HttpClient) { 
+   let token = JSON.parse(localStorage.getItem('authData')).token;
+   this.headers = new HttpHeaders({
+     'token':token
+   });
+  }
+
+
+  saveNote(data){
+    return this.http.post(environment.SERVICIOS_GUARDAR_VENTA,data,{headers:this.headers});
+  }
+
+  
+
+}

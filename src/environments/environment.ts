@@ -8,7 +8,8 @@ export const GLOBAL = {
 
 export const environment = {
   production: false,
-  SERVICIOS_INICIA_SESION: GLOBAL.RUTA_GLOBAL + '/api/login'
+  SERVICIOS_INICIA_SESION: GLOBAL.RUTA_GLOBAL + '/api/login',
+  SERVICIOS_GUARDAR_VENTA: GLOBAL.RUTA_GLOBAL + '/api/note'
 };
 
 
