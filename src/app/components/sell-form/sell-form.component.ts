@@ -152,7 +152,7 @@ export class SellFormComponent implements OnInit {
 
   endOrder(template){
     this.modalLoadingService.launchModalService(true);
-   this.modalSale.hide();
+    this.modalSale.hide();
     this.notesService.saveNote(this.saleItem).subscribe(response => {
       this.modalLoadingService.launchModalService(false);
      
