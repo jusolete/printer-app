@@ -10,7 +10,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
 export class ListSalesComponent implements OnInit {
 
   @ViewChild('modal', { static: false }) autoShownModal: ModalDirective;
-
+  @ViewChild('modalPayment', { static: false }) modalPayment: ModalDirective;
   constructor(private notesService:NotesService) { }
 
   ngOnInit() {
@@ -25,6 +25,10 @@ export class ListSalesComponent implements OnInit {
   salesList:any[]= [];
 
   selectedSale:any = {}
+
+  paymentAmount: number;
+
+  toBePayed: number;
 
   searchForSale() {
     let queryString = `?`;
@@ -72,6 +76,31 @@ export class ListSalesComponent implements OnInit {
     debugger
   }
 
+  openModalPayment(){
+    this.modalPayment.show();
+    this.calculateRemainingPayment();
+  }
+
+  closeModalPayment(){
+    this.modalPayment.hide();
+  }
+
+  addPayment(){
+   console.log(this.selectedSale);
+   this.selectedSale.amountPayed += this.paymentAmount
+   if(this.selectedSale.amountPayed === this.selectedSale.totalSalePrice){
+    this.selectedSale.status = 'Pagado';
+  }
+   debugger
+   this.notesService.editNote(this.selectedSale,this.selectedSale._id).subscribe(response=>{
+    debugger  
+    if(response['ok'] == true){
+        
+        this.closeModalPayment();
+      }
+   });
+   debugger
+  }
 
   openModal(){
     this.autoShownModal.show();
@@ -79,6 +108,15 @@ export class ListSalesComponent implements OnInit {
 
   closeModal(){
     this.autoShownModal.hide();
+  }
+
+  calculateRemainingPayment(){
+    this.toBePayed = this.selectedSale.totalSalePrice - this.selectedSale.amountPayed;
+  }
+
+  reCalculateRemainingPayment(){
+    this.calculateRemainingPayment();
+    this.toBePayed -= this.paymentAmount;
   }
 
 }

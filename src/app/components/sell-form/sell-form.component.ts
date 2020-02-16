@@ -23,12 +23,16 @@ export class SellFormComponent implements OnInit {
     items: [],
     totalSalePrice: 0,
     noteDate: undefined,
-    formError: false
+    formError: false,
+    amountPayed: 0,
+    status: ''
   }
 
   clientsResults: any[] = [];
 
-  formObject: any[] = []
+  formObject: any[] = [];
+
+  saleDifference: number;
 
   constructor(private modalService: BsModalService,
     private modalLoadingService: ModalService, private notesService: NotesService) { }
@@ -56,7 +60,8 @@ export class SellFormComponent implements OnInit {
       fileName: '',
       totalItemPrice: 0,
       formError: false,
-      isPrintingItem: true
+      isPrintingItem: true,
+      adjustment:0
     });
     this.autoShownModal.hide();
   }
@@ -73,7 +78,8 @@ export class SellFormComponent implements OnInit {
       fileName: '',
       totalItemPrice: 0,
       formError: false,
-      isPrintingItem: false
+      isPrintingItem: false,
+      adjustment: 0
     });
     this.autoShownModal.hide();
 
@@ -99,6 +105,9 @@ export class SellFormComponent implements OnInit {
   calculateTotalItemPrice(index) {
     if (this.formObject[index].quantity != undefined && this.formObject[index].unitPrice != undefined && this.formObject[index].length != undefined && this.formObject[index].height != undefined) {
       this.formObject[index].totalItemPrice = this.formObject[index].unitTotalPrice * this.formObject[index].quantity;
+      if(this.formObject[index].adjustment && Number(this.formObject[index].adjustment)  >= 0){
+        this.formObject[index].totalItemPrice += Number(this.formObject[index].adjustment);
+      }
     }
   }
 
@@ -139,6 +148,9 @@ export class SellFormComponent implements OnInit {
   calculateItemPrice(index) {
     if (this.formObject[index].quantity != undefined && this.formObject[index].unitPrice != undefined) {
       this.formObject[index].totalItemPrice = this.formObject[index].quantity * this.formObject[index].unitPrice;
+      if(this.formObject[index].adjustment && Number(this.formObject[index].adjustment)  >= 0){
+        this.formObject[index].totalItemPrice += Number(this.formObject[index].adjustment);
+      }
     }
   }
 
@@ -146,6 +158,7 @@ export class SellFormComponent implements OnInit {
     let size = this.validateFormFields()
     if (size === this.formObject.length && this.validateMainData()) {
       this.saleItem.totalSalePrice = this.calculateTotals();
+      this.saleItem.amountPayed = this.saleItem.totalSalePrice;
       this.modalSale.show();
       this.saleItem.items = this.formObject;
     }
@@ -156,6 +169,12 @@ export class SellFormComponent implements OnInit {
     let notificationObj = {};
     this.modalLoadingService.launchModalService(true);
     this.modalSale.hide();
+    if(this.saleItem.amountPayed < this.saleItem.totalSalePrice){
+      this.saleItem.status = 'Por pagar'
+    }else{
+      this.saleItem.status = 'Pagado'
+    }
+
     this.notesService.saveNote(this.saleItem).subscribe(response => {
       location.reload();
     }, (error => {
@@ -203,6 +222,17 @@ export class SellFormComponent implements OnInit {
 
   selectClient(client){
     this.saleItem.client = client.name;
+    this.clientsResults = [];
+  }
+
+
+  comparePrice(){
+    if(this.saleItem.totalSalePrice > this.saleItem.amountPayed){
+      this.saleDifference = this.saleItem.totalSalePrice - this.saleItem.amountPayed;
+    }
+  }
+
+  clearClientList(){
     this.clientsResults = [];
   }
 

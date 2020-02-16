@@ -31,6 +31,10 @@ export class NotesService {
     return this.http.get(`${environment.SERVICIOS_BUSCA_VENTA}${queryString}`, { headers: this.headers });
   }
 
+  editNote(note, id:string) {
+    return this.http.put(`${environment.SERVICIOS_GUARDAR_VENTA}/${id}`,note,{headers:this.headers});
+  }
+
 
 
 }
