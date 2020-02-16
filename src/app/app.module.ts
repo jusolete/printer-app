@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ChartsModule } from 'ng2-charts';
 import { AlertModule } from 'ngx-bootstrap/alert';
-
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MainInterceptor } from './services/interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,11 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     AlertModule.forRoot(),
     ModalModule.forRoot()
   ],
-  providers: [ServicesArray, {provide: MAT_DATE_LOCALE, useValue: 'es-MX'}],
+  providers: [ServicesArray, {provide: MAT_DATE_LOCALE, useValue: 'es-MX'}, {
+     provide: HTTP_INTERCEPTORS,
+     useClass: MainInterceptor,
+     multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

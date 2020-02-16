@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal/';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ModalService} from '../../services/modals/modal.service';
+import { ModalService } from '../../services/modals/modal.service';
 import { NotesService } from '../../services/notes/notes.service';
- 
+
 
 @Component({
   selector: 'app-sell-form',
@@ -14,8 +14,8 @@ export class SellFormComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  @ViewChild('modal',{static: false }) autoShownModal: ModalDirective;
-  @ViewChild('modalSale',{static: false }) modalSale: ModalDirective;
+  @ViewChild('modal', { static: false }) autoShownModal: ModalDirective;
+  @ViewChild('modalSale', { static: false }) modalSale: ModalDirective;
 
 
   saleItem: any = {
@@ -26,23 +26,25 @@ export class SellFormComponent implements OnInit {
     formError: false
   }
 
+  clientsResults: any[] = [];
+
   formObject: any[] = []
 
-  constructor(private modalService:BsModalService,
-     private modalLoadingService:ModalService, private notesService: NotesService) { }
+  constructor(private modalService: BsModalService,
+    private modalLoadingService: ModalService, private notesService: NotesService) { }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.openAskModal();
   }
 
-  openAskModal(){
+  openAskModal() {
     this.autoShownModal.show();
   }
 
-  addPrintingProduct(){
+  addPrintingProduct() {
     this.formObject.push({
       quantity: undefined,
       length: undefined,
@@ -54,12 +56,12 @@ export class SellFormComponent implements OnInit {
       fileName: '',
       totalItemPrice: 0,
       formError: false,
-      isPrintingItem:true
+      isPrintingItem: true
     });
     this.autoShownModal.hide();
   }
 
-  addPromotionalProduct(){
+  addPromotionalProduct() {
     this.formObject.push({
       quantity: undefined,
       length: '',
@@ -71,7 +73,7 @@ export class SellFormComponent implements OnInit {
       fileName: '',
       totalItemPrice: 0,
       formError: false,
-      isPrintingItem:false
+      isPrintingItem: false
     });
     this.autoShownModal.hide();
 
@@ -125,18 +127,18 @@ export class SellFormComponent implements OnInit {
     return false;
   }
 
-  calculateTotals(){
+  calculateTotals() {
     let total = 0;
-    for(const item of this.formObject){
+    for (const item of this.formObject) {
       total += item.totalItemPrice;
     }
     return total;
     debugger
   }
 
-  calculateItemPrice(index){
-    if(this.formObject[index].quantity != undefined && this.formObject[index].unitPrice != undefined){
-     this.formObject[index].totalItemPrice = this.formObject[index].quantity * this.formObject[index].unitPrice;
+  calculateItemPrice(index) {
+    if (this.formObject[index].quantity != undefined && this.formObject[index].unitPrice != undefined) {
+      this.formObject[index].totalItemPrice = this.formObject[index].quantity * this.formObject[index].unitPrice;
     }
   }
 
@@ -150,23 +152,14 @@ export class SellFormComponent implements OnInit {
   }
 
 
-  endOrder(template){
+  endOrder() {
     let notificationObj = {};
     this.modalLoadingService.launchModalService(true);
     this.modalSale.hide();
     this.notesService.saveNote(this.saleItem).subscribe(response => {
-      debugger
-      notificationObj['type'] = 'success';
-      notificationObj['message'] = 'Solicitud procesada correctamente';
-      this.modalLoadingService.launchModalService(false);
-      this.modalLoadingService.launchAlertService(notificationObj);
-      debugger
-    },(error => {
-      this.modalLoadingService.launchModalService(false);
-      notificationObj['type'] = 'danger';
-      notificationObj['message'] = 'Ha ocurrido un error al procesar la solicitud';
-      this.modalLoadingService.launchAlertService(notificationObj);
-      debugger
+      location.reload();
+    }, (error => {
+      
     }));
   }
 
@@ -174,11 +167,11 @@ export class SellFormComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  closeModal(template: TemplateRef<any>){
+  closeModal(template: TemplateRef<any>) {
     this.modalRef.hide();
   }
 
-  hideModal(){
+  hideModal() {
     this.autoShownModal.hide();
     debugger
   }
@@ -189,6 +182,28 @@ export class SellFormComponent implements OnInit {
 
   removeSale(index) {
     this.formObject.splice(index, 1);
+  }
+
+  searchClient() {
+
+    if(this.saleItem.client.length === 0){
+      this.clientsResults = [];
+    }
+
+    let timeout = setTimeout(() => {
+        this.notesService.searchForClient(this.saleItem.client).subscribe(response => {
+          if (response['ok'] && response['ok'] == true) {
+            this.clientsResults = response['success'];
+          }
+        });
+        clearInterval(timeout);
+    }, 500);
+
+  }
+
+  selectClient(client){
+    this.saleItem.client = client.name;
+    this.clientsResults = [];
   }
 
 }
